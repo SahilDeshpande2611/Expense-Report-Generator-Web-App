@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family:'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: #29507a;
   margin: 20px;
   padding: 0;
@@ -50,7 +50,7 @@ body {
 
 .section-title {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .form-row, .date-range {
@@ -65,7 +65,7 @@ label {
   color: #555;
 }
 input, textarea {
-  width: 100%;
+  width: 90%;
   padding: 8px;
   border: none;
   outline: none;
@@ -75,7 +75,7 @@ input, textarea {
 }
 
 input:focus , textarea:focus {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 2px solid #29507a;
   margin-bottom: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -126,7 +126,7 @@ table td {
 }
 
 tfoot td {
-  font-weight: bold;
+  font-size: 16px;
   text-align: right;
 }
 
@@ -167,10 +167,10 @@ tfoot #addExpense:hover {
     gap: 2px;
   }
   .text-right{
-    font-size: 18px;
+    font-size: 12px;
   }
   .company-info{
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 
