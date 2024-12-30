@@ -66,18 +66,18 @@ document.addEventListener("DOMContentLoaded", function () {
         const { jsPDF } = window.jspdf;
 
         const container = document.querySelector(".container");
-        const scale = 2; // High-quality scaling
+        const scale = 2;
 
         html2canvas(container, {
             scale: scale,
-            useCORS: true, // Ensure cross-origin content is rendered
-            scrollY: 0, // Avoid issues with scrolled content
-            logging: true, // Debug rendering issues
+            useCORS: true, 
+            scrollY: 0,
+            logging: true, 
         }).then((canvas) => {
             const pdf = new jsPDF({
                 orientation: "portrait",
                 unit: "px",
-                format: [canvas.width, canvas.height], // Match content dimensions
+                format: [canvas.width, canvas.height], 
             });
             const imgData = canvas.toDataURL("image/png");
             pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
