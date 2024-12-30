@@ -1,87 +1,108 @@
 document.addEventListener("DOMContentLoaded", function () {
     const expenseTable = document.getElementById("expenseTable");
     const addExpenseLink = document.getElementById("addExpense");
-    const totalAmountCell = document.getElementById("totalAmount");
+    const totalElement = document.querySelector(".total");
+    let totalAmount = 0;
+
+    // Update Total Amount
+    window.updateTotal = function () {
+      const rows = expenseTable.querySelectorAll("tbody tr");
+      totalAmount = 0;
+
+      rows.forEach(row => {
+        const amountInput = row.querySelector(".amount-input");
+        const amount = parseFloat(amountInput.value) || 0;
+        totalAmount += amount;
+      });
+
+      totalElement.textContent = `Total: ₹${totalAmount.toFixed(2)}`;
+    };
 
     // Add Expense Row Dynamically
     addExpenseLink.addEventListener("click", function (event) {
-        event.preventDefault();
+      event.preventDefault();
 
-        const newRow = expenseTable.insertRow(expenseTable.rows.length - 1);
-        newRow.innerHTML = `
-            <td data-label="Date"><input type="date" name="Expense_Date" value="2025-12-25"></td>
-            <td data-label="Expense Description"><textarea name="Expense_Description" placeholder="Expense Description" rows="2" cols="40"></textarea></td>
-            <td data-label="Category">
-              <select name="Category" style="width: 150px; height: 30px; font-size: 14px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 4px; padding: 5px; cursor: pointer;">
-                <option value="" disabled selected>Select Category</option>
-                <option value="Travel">Travel</option>
-                <option value="Food">Food</option>
-              </select>
-            </td>
-            <td data-label="Amount"><input type="number" name="Amount" class="amount-input" placeholder="0.00" required></td>
-            <td><button class="remove-btn">Remove</button></td>
-        `;
+      const newRow = expenseTable.insertRow(expenseTable.rows.length - 1);
+      newRow.innerHTML = `
+        <td data-label="Date"><input type="date" name="Expense_Date" value="2025-12-25"></td>
+        <td data-label="Expense Description"><textarea name="Expense_Description" placeholder="Expense Description" rows="2" cols="40" required></textarea></td>
+        <td data-label="Category">
+          <input type="text" id="Category" name="Category" placeholder="Category" style="width:90%;">
+        </td>
+        <td data-label="Amount"><input type="number" name="Amount" class="amount-input" placeholder="0.00" oninput="updateTotal()" required></td>
+        <td><button class="remove-btn" style="background:#e8dbdb; border: none; color: red; font-size: 18px; cursor: pointer;">&times;</button></td>
+      `;
+
+      // Add listener for the new row's remove button
+      const removeBtn = newRow.querySelector(".remove-btn");
+      removeBtn.addEventListener("click", function () {
+        newRow.remove();
+        updateTotal();
+      });
     });
 
-    // Upload Logo and Display Preview
-    document.getElementById("logoUpload").addEventListener("change", function (event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
+    // Add Event Listener for Existing Remove Buttons
+    document.querySelectorAll(".remove-btn").forEach(button => {
+      button.addEventListener("click", function () {
+        const row = button.closest("tr");
+        row.remove();
+        updateTotal();
+      });
+    });
 
-         if (file) {
-                reader.onload = function (e) {
-                // Set the source of the logo preview
-                document.getElementById("logoPreview").src = e.target.result;
-            };
-        reader.readAsDataURL(file);
+    // Form Validation
+    function validateForm() {
+      const requiredFields = document.querySelectorAll('input[required], textarea[required]');
+      let isValid = true;
+
+      requiredFields.forEach((field) => {
+        if (!field.value.trim()) {
+          field.style.border = '2px solid red'; // Highlight the invalid field
+          isValid = false;
+        } else {
+          field.style.border = ''; // Remove highlighting if valid
         }
-    });
+      });
 
+      if (!isValid) {
+        alert("Please fill out all required fields.");
+      }
 
-    // Update Total Amount
-    function updateTotal() {
-        let total = 0.0;
-        const amounts = expenseTable.querySelectorAll(".amount-input");
-        amounts.forEach((input) => {
-            total += parseFloat(input.value) || 0;
-        });
-        totalAmountCell.textContent = total.toFixed(2);
+      return isValid;
     }
-
-    expenseTable.addEventListener("input", function (event) {
-        if (event.target.classList.contains("amount-input")) {
-            updateTotal();
-        }
-    });
-
-    expenseTable.addEventListener("click", function (event) {
-        if (event.target.classList.contains("remove-btn")) {
-            event.target.closest("tr").remove();
-            updateTotal();
-        }
-    });
 
     // Generate PDF with Full Content Visibility
     document.getElementById("download").addEventListener("click", function () {
-        const { jsPDF } = window.jspdf;
+      if (!validateForm()) return; // Validate form before generating PDF
 
-        const container = document.querySelector(".container");
-        const scale = 2;
+      const { jsPDF } = window.jspdf;
 
-        html2canvas(container, {
-            scale: scale,
-            useCORS: true, 
-            scrollY: 0,
-            logging: true, 
-        }).then((canvas) => {
-            const pdf = new jsPDF({
-                orientation: "portrait",
-                unit: "px",
-                format: [canvas.width, canvas.height], 
-            });
-            const imgData = canvas.toDataURL("image/png");
-            pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-            pdf.save("expense_report.pdf");
+      const container = document.querySelector(".container"); // Ensure all content is wrapped in .container
+      const containerWidth = container.scrollWidth; // Full width of the container
+      const containerHeight = container.scrollHeight; // Full height of the container
+
+      const scale = 2; // Scale to improve resolution
+      html2canvas(container, {
+        scale: scale,
+        useCORS: true,
+        width: containerWidth, // Ensure full width is captured
+        height: containerHeight, // Ensure full height is captured
+        scrollY: 0, // Prevent scrolling issues
+      }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+
+        // Create a new jsPDF instance with landscape orientation if necessary
+        const pdf = new jsPDF({
+          orientation: containerWidth > containerHeight ? "landscape" : "portrait",
+          unit: "px",
+          format: [canvas.width, canvas.height],
         });
+
+        // Add the canvas image to the PDF
+        pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+        pdf.save("expense_report.pdf");
+      }).catch((error) => {
+        console.error("Error generating PDF:", error);
+      });
     });
-});
+  });

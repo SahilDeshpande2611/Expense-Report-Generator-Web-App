@@ -1,6 +1,6 @@
 body {
   font-family:'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: #29507a;
+  background-color: #33455b ;
   margin: 20px;
   padding: 0;
 }
@@ -29,33 +29,76 @@ body {
 
 .section {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.left-section, .right-section {
-  margin-bottom: 20px;
-}
-
-.left-section h2, .section-title {
-  margin: 0 0 10px;
+.left-section {
+  flex: 1;
+  padding-right: 20px;
 }
 
 .left-section h2 {
-  font-weight: lighter;
-  color: #aaa;
+  margin-bottom: 5px;
 }
 
-.section-title {
+.left-section input[type="text"] {
+  width: 100%;
+  font-size: 18px;
   font-weight: bold;
-  font-size: 14px;
 }
 
-.form-row, .date-range {
+.description {
+  margin-bottom: 10px;
+  color: #888;
+}
+
+.left-section textarea {
+  width: 100%;
+}
+
+.right-section {
+  flex: 1;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.form-group > div {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.form-group > div:last-child {
+  margin-right: 0;
+}
+
+.right-section label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#business_purpose{
+  width:90%;
+}
+
+.right-section input[type="text"],
+.right-section input[type="date"] {
+  width: 100%;
+}
+
+.reporting-period {
   display: flex;
   flex-direction: column;
+}
+
+.reporting-period input[type="date"] {
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 label {
@@ -79,23 +122,6 @@ input:focus , textarea:focus {
   margin-bottom: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-
-.form-group input[type="text"], .form-group input[type="date"] {
-  border: 1px solid #ccc;
-  padding: 5px;
-  border-radius: 3px;
-}
-
-#business_purpose{
-  width:90%;
-}
-.form-group{
-  padding: 8px;
-} 
-
-.image{
-  text-align: center;
-}
 .remove-btn {
   background-color: #e74c3c;
   color: white;
@@ -112,7 +138,7 @@ input:focus , textarea:focus {
 
 table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
   
 }
 
@@ -155,11 +181,21 @@ tfoot #addExpense:hover {
   cursor: pointer;
   font-size: 12px;
 }
+.addExpense{
+  background-color: #478cd1;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 10px;
 
-#logoPreview {
-  margin-top: 10px;
-  max-width: 200px;
-  max-height: 200px;
+}
+
+.total {
+  font-weight: bold;
+  text-align: right;
+  font-size: 18px;
 }
 
 @media (max-width: 768px) {
@@ -176,6 +212,10 @@ tfoot #addExpense:hover {
 }
 
   @media (max-width: 768px) {  
+  body {
+    margin: 10px;
+    
+  }
   .header {
     display: flex;
     justify-content: center;
@@ -184,4 +224,20 @@ tfoot #addExpense:hover {
     flex-wrap: nowrap;
     flex-direction: column-reverse;
   }  
+   table input, textarea {
+    width: 83%;
+    padding: 7px;
+    border-radius: 5px;
+    font-size: 15px;
+  }
+  table th {
+    padding: 5px;
+    background: #478cd1;
+    color: #fff;
+    font-size: 10px;
+  }  
+  table td {
+    padding: 8px;
+    padding-bottom: 10px;
+}
 }
