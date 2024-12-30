@@ -1,0 +1,186 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #29507a;
+  margin: 20px;
+  padding: 0;
+}
+
+.container {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.company-info {
+  font-size: 14px;
+  line-height: 1.6;
+  flex: 0.8;
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.left-section, .right-section {
+  margin-bottom: 20px;
+}
+
+.left-section h2, .section-title {
+  margin: 0 0 10px;
+}
+
+.left-section h2 {
+  font-weight: lighter;
+  color: #aaa;
+}
+
+.section-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.form-row, .date-range {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: #555;
+}
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+input:focus , textarea:focus {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-group input[type="text"], .form-group input[type="date"] {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+#business_purpose{
+  width:90%;
+}
+.form-group{
+  padding: 8px;
+} 
+
+.image{
+  text-align: center;
+}
+.remove-btn {
+  background-color: #e74c3c;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.expense-table {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th {
+  padding: 10px;
+  background: #478cd1;
+  color: #fff;
+}
+
+table td {
+  padding: 10px;
+}
+
+tfoot td {
+  font-weight: bold;
+  text-align: right;
+}
+
+tfoot #addExpense {
+  color: #2980b9;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+tfoot #addExpense:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.btn-download {
+  background-color: #60da6c;
+  color: #fff;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#logoPreview {
+  margin-top: 10px;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .text-right{
+    font-size: 18px;
+  }
+  .company-info{
+    font-size: 12px;
+  }
+}
+
+  @media (max-width: 768px) {  
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 13px;
+    flex-wrap: nowrap;
+    flex-direction: column-reverse;
+  }  
+}
