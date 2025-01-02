@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     addExpenseLink.addEventListener("click", function (event) {
       event.preventDefault();
 
-      const newRow = expenseTable.insertRow(expenseTable.rows.length - 1);
+      const newRow = expenseTable.insertRow(expenseTable.rows.length);
       newRow.innerHTML = `
         <td data-label="Date"><input type="date" name="Expense_Date" value="2025-12-25"></td>
         <td data-label="Expense Description"><textarea name="Expense_Description" placeholder="Expense Description" rows="2" cols="40" required></textarea></td>
